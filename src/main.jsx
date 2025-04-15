@@ -12,15 +12,15 @@ const redirectUri = window.location.origin;
 createRoot(document.getElementById("root")).render(
   <CartProvider>
     <BrowserRouter>
-    <Auth0Provider
-    domain="dev-yfzi7kdprn128ubs.us.auth0.com"
-    clientId="ueAjn1GB57PF5oxQb7XouA4YrnASq1D6"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-  >
-    <App />
-  </Auth0Provider>,
+      <Auth0Provider
+        domain="dev-yfzi7kdprn128ubs.us.auth0.com"
+        clientId="mpRouzMlsbCUrhbaRETdInabQEOqd7yW"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
+        <App />
+      </Auth0Provider>
       <ToastContainer
         position="top-right"
         autoClose={5000}
