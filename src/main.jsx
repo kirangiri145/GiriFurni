@@ -6,7 +6,6 @@ import { CartProvider } from "./Context/CartContext.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Bounce, ToastContainer } from "react-toastify";
 
-// Make sure the redirect_uri matches what you added to Auth0's Allowed Callback URLs
 const redirectUri = window.location.origin;
 
 createRoot(document.getElementById("root")).render(

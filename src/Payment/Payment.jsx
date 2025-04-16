@@ -17,7 +17,6 @@ function Payment() {
   let hash = CryptoJS.HmacSHA256(Message, "8gBm/:&EnhH.1/q");
   let hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
 
-  // Save data locally before redirect
   const successData = {
     status: "Success",
     total_amount,
@@ -43,12 +42,12 @@ function Payment() {
           <input
             type="hidden"
             name="success_url"
-            value="http://localhost:5173/success"
+            value="https://giri-furni.vercel.app/success"
           />
           <input
             type="hidden"
             name="failure_url"
-            value="http://localhost:5173/failure"
+            value="https://giri-furni.vercel.app/failure"
           />
           <input
             type="hidden"

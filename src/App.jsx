@@ -10,7 +10,7 @@ import Shop from './Pages/Shop'
 import Footer from './Pages/Footer'
 import CartPage from './Pages/CartPage'
 import Payment from './Payment/Payment'
-import Sucess from './Payment/Sucess'
+import Success from './Payment/Success'
 import Failure from './Payment/Failure'
 import ProtectedRoutes from './Auth/ProtectedRoutes'
 import Login from './Auth/Login'
@@ -34,7 +34,7 @@ function App() {
         <Route path='/shop' element={<Shop />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/payment' element={<Payment />} />
-        <Route path="/success" element={<Sucess />} />
+        <Route path="/success" element={<Success />} />
         <Route path='/failure' element={<Failure />} />
         <Route path='/login' element={<Login/>} />
         <Route path='/profile' element={<ProfilePage/>} />

@@ -150,8 +150,6 @@ function About() {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-green-700">Our Team</h2>
         </div>
-
-        {/* Featured Member */}
         {featuredMember && (
           <div className="mb-12">
             <div className="w-full rounded-xl overflow-hidden shadow-lg group">
@@ -174,8 +172,6 @@ function About() {
             </div>
           </div>
         )}
-
-        {/* Other Team Members */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {otherMembers.map((member) => (
             <div

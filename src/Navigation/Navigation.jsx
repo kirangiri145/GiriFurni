@@ -20,10 +20,7 @@ function Navigation() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
     };
@@ -34,35 +31,42 @@ function Navigation() {
   return (
     <nav className="bg-blue-100 shadow-md py-2 font-bold z-50 font-serif fixed w-full top-0 left-0">
       <div className="container mx-auto px-4 flex items-center justify-between relative">
-        {/* Logo */}
-        <NavLink to="/" className="flex items-center space-x-2 text-2xl font-bold text-green-700 italic">
+        <NavLink
+          to="/"
+          className="flex items-center space-x-2 text-2xl font-bold text-green-700 italic"
+        >
           <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
           <span className="hover:text-amber-700">Giri Furni</span>
         </NavLink>
 
-        {/* Desktop Links */}
         <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
-          {["/", "/shop", "/about", "/services", "/blog", "/contact"].map((path, i) => {
-            const label = ["Home", "Shop", "About Us", "Services", "Blog", "Contact Us"][i];
-            return (
-              <NavLink
-                key={path}
-                to={path}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-amber-600 border-b-2 border-amber-600 pb-1"
-                    : "text-gray-600 hover:text-amber-600 transition duration-200"
-                }
-              >
-                {label}
-              </NavLink>
-            );
-          })}
+          {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
+            (path, i) => {
+              const label = [
+                "Home",
+                "Shop",
+                "About Us",
+                "Services",
+                "Blog",
+                "Contact Us",
+              ][i];
+              return (
+                <NavLink
+                  key={path}
+                  to={path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-amber-600 border-b-2 border-amber-600 pb-1"
+                      : "text-gray-600 hover:text-amber-600 transition duration-200"
+                  }
+                >
+                  {label}
+                </NavLink>
+              );
+            }
+          )}
         </div>
-
-        {/* Right Side: Cart and Profile */}
         <div className="flex items-center space-x-4 ml-auto">
-          {/* Cart */}
           <NavLink
             to="/cart"
             className={({ isActive }) =>
@@ -80,8 +84,6 @@ function Navigation() {
               )}
             </div>
           </NavLink>
-
-          {/* Profile + Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button onClick={toggleDropdown} className="focus:outline-none">
               {isAuthenticated && user?.picture ? (
@@ -91,7 +93,10 @@ function Navigation() {
                   className="h-10 w-10 rounded-full object-cover"
                 />
               ) : (
-                <CgProfile size={30} className="text-gray-600 hover:text-amber-600" />
+                <CgProfile
+                  size={30}
+                  className="text-gray-600 hover:text-amber-600"
+                />
               )}
             </button>
 
@@ -116,8 +121,6 @@ function Navigation() {
             )}
           </div>
         </div>
-
-        {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-600 hover:text-amber-600 focus:outline-none"
@@ -137,29 +140,39 @@ function Navigation() {
             />
           </svg>
         </button>
-
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-gray-100 shadow-md py-4 px-6 space-y-4 z-20">
-            {["/", "/shop", "/about", "/services", "/blog", "/contact"].map((path, i) => {
-              const label = ["Home", "Shop", "About Us", "Services", "Blog", "Contact Us"][i];
-              return (
-                <NavLink
-                  key={path}
-                  to={path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block text-amber-600 border-b-2 border-amber-600 pb-1"
-                      : "block text-gray-600 hover:text-amber-600 transition duration-200"
-                  }
-                >
-                  {label}
-                </NavLink>
-              );
-            })}
+            {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
+              (path, i) => {
+                const label = [
+                  "Home",
+                  "Shop",
+                  "About Us",
+                  "Services",
+                  "Blog",
+                  "Contact Us",
+                ][i];
+                return (
+                  <NavLink
+                    key={path}
+                    to={path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block text-amber-600 border-b-2 border-amber-600 pb-1"
+                        : "block text-gray-600 hover:text-amber-600 transition duration-200"
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                );
+              }
+            )}
             <NavLink to="/cart" onClick={() => setIsMenuOpen(false)}>
-              <BsCartCheckFill size={28} className="text-gray-600 hover:text-amber-600" />
+              <BsCartCheckFill
+                size={28}
+                className="text-gray-600 hover:text-amber-600"
+              />
             </NavLink>
           </div>
         )}
