@@ -9,9 +9,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 function Navigation() {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const { getCartItemCount } = useCart();
-  const cartItemCount = getCartItemCount();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -28,8 +28,16 @@ function Navigation() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm("");
+    }
+  };
+
   return (
-    <nav className="bg-blue-100 shadow-md py-2 font-bold z-50 font-serif fixed w-full top-0 left-0">
+    <nav className="bg-blue-100 shadow-md py-2 font-bold z-50 font-serif fixed w-full top-0 left-0 transition-all duration-300">
       <div className="container mx-auto px-4 flex items-center justify-between relative">
         {/* Logo */}
         <NavLink
@@ -40,47 +48,43 @@ function Navigation() {
           <span className="hover:text-amber-700">Giri Furni</span>
         </NavLink>
 
-        {/* Center Nav Links */}
+        {/* Middle Menu (Desktop Only) */}
         <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
-          {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
-            (path, i) => {
-              const label = [
-                "Home",
-                "Shop",
-                "About Us",
-                "Services",
-                "Blog",
-                "Contact Us",
-              ][i];
-              return (
-                <NavLink
-                  key={path}
-                  to={path}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-amber-600 border-b-2 border-amber-600 pb-1"
-                      : "text-gray-600 hover:text-amber-600 transition duration-200"
-                  }
-                >
-                  {label}
-                </NavLink>
-              );
-            }
-          )}
+          {["/", "/shop", "/about", "/services", "/blog", "/contact"].map((path, i) => {
+            const label = ["Home", "Shop", "About Us", "Services", "Blog", "Contact Us"][i];
+            return (
+              <NavLink
+                key={path}
+                to={path}
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-amber-600 border-b-2 border-amber-600 pb-1"
+                    : "text-gray-600 hover:text-amber-600 transition duration-200"
+                }
+              >
+                {label}
+              </NavLink>
+            );
+          })}
         </div>
 
-        {/* Right Side Items */}
+        {/* Right Section */}
         <div className="flex items-center space-x-4 ml-auto">
-          {/* 🔍 Search Bar */}
-          <div className="relative w-28 sm:w-40 md:w-56 lg:w-64">
+          {/* Search Input */}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative w-8 md:w-64 transition-all duration-300 focus-within:w-40 md:focus-within:w-64"
+          >
             <input
               type="text"
               placeholder="Search..."
-              className="w-full border border-gray-600 rounded-full px-4 py-1.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border border-gray-600 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 w-full opacity-0 md:opacity-100 focus:opacity-100 transition-all duration-300"
             />
             <button
               type="submit"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-amber-600"
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-amber-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,9 +101,9 @@ function Navigation() {
                 />
               </svg>
             </button>
-          </div>
+          </form>
 
-          {/* 🛒 Cart */}
+          {/* Cart */}
           <NavLink
             to="/cart"
             className={({ isActive }) =>
@@ -110,15 +114,15 @@ function Navigation() {
           >
             <div className="relative">
               <BsCartCheckFill size={30} />
-              {cartItemCount > 0 && (
-                <span className="absolute top-0 right-0 text-xs font-bold text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItemCount}
+              {getCartItemCount() > 0 && (
+                <span className="absolute -top-1 -right-2 text-xs font-bold text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
+                  {getCartItemCount()}
                 </span>
               )}
             </div>
           </NavLink>
 
-          {/* 👤 Profile */}
+          {/* Profile Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button onClick={toggleDropdown} className="focus:outline-none">
               {isAuthenticated && user?.picture ? (
@@ -138,14 +142,19 @@ function Navigation() {
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                 {isAuthenticated ? (
-                  <button
-                    onClick={() =>
-                      logout({ returnTo: window.location.origin })
-                    }
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-2xl hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
+                  <>
+                    <div className="px-4 py-2 text-sm text-gray-700">
+                      Welcome, {user?.given_name || user?.name}
+                    </div>
+                    <button
+                      onClick={() =>
+                        logout({ returnTo: window.location.origin })
+                      }
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-2xl hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <button
                     onClick={() => loginWithRedirect()}
@@ -159,7 +168,7 @@ function Navigation() {
           </div>
         </div>
 
-        {/* Hamburger Icon */}
+        {/* Hamburger for Mobile */}
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-600 hover:text-amber-600 focus:outline-none"
@@ -209,12 +218,21 @@ function Navigation() {
                 );
               }
             )}
-            <NavLink to="/cart" onClick={() => setIsMenuOpen(false)}>
-              <BsCartCheckFill
-                size={28}
-                className="text-gray-600 hover:text-amber-600"
+            <form onSubmit={handleSearchSubmit} className="flex space-x-2">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full border border-gray-600 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
-            </NavLink>
+              <button
+                type="submit"
+                className="text-gray-800 hover:text-amber-600"
+              >
+                🔍
+              </button>
+            </form>
           </div>
         )}
       </div>
