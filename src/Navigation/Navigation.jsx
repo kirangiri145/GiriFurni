@@ -94,7 +94,7 @@ function Navigation() {
                 />
               ) : (
                 <CgProfile
-                  size={30}
+                  size={20}
                   className="text-gray-600 hover:text-amber-600"
                 />
               )}
@@ -105,14 +105,14 @@ function Navigation() {
                 {isAuthenticated ? (
                   <button
                     onClick={() => logout({ returnTo: window.location.origin })}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-2xl hover:bg-gray-100"
                   >
                     Logout
                   </button>
                 ) : (
                   <button
                     onClick={() => loginWithRedirect()}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-2xl hover:bg-gray-100"
                   >
                     Login
                   </button>
