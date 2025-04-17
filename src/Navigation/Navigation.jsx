@@ -90,7 +90,7 @@ function Navigation() {
                 <img
                   src={user.picture}
                   alt="Profile"
-                  className="h-8 w-8 rounded-full object-cover"
+                  className="h-5 w-5 rounded-full object-cover"
                 />
               ) : (
                 <CgProfile
