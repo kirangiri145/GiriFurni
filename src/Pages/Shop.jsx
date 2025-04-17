@@ -455,7 +455,6 @@ const products = [
 ];
 
 function Shop() {
-  
   const { addToCart } = useCart(); 
   const navigate = useNavigate(); 
 

@@ -38,9 +38,8 @@ function App() {
         <Route path='/failure' element={<Failure />} />
         <Route path='/login' element={<Login/>} />
         <Route path='/profile' element={<ProfilePage/>} />
-        <Route path="/profile" element={<Profile />} /> 
-
-        <Route path='/protectedRoutes' element={<ProtectedRoutes/>} />
+        <Route path="/profile" element={<Profile />} />
+         <Route path='/protectedRoutes' element={<ProtectedRoutes/>} />
         
       </Routes>
       <Footer/>

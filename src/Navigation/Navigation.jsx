@@ -66,7 +66,34 @@ function Navigation() {
             }
           )}
         </div>
+
         <div className="flex items-center space-x-4 ml-auto">
+          {/* 🔍 Search Bar */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border border-gray-600 rounded-full px-3 py-1 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+            />
+            <button className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-amber-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 13.65z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* 🛒 Cart */}
           <NavLink
             to="/cart"
             className={({ isActive }) =>
@@ -84,13 +111,15 @@ function Navigation() {
               )}
             </div>
           </NavLink>
+
+          {/* 👤 Profile */}
           <div className="relative" ref={dropdownRef}>
             <button onClick={toggleDropdown} className="focus:outline-none">
               {isAuthenticated && user?.picture ? (
                 <img
                   src={user.picture}
                   alt="Profile"
-                  className="h-5 w-5 rounded-full object-cover"
+                  className="h-5 w-5 rounded-full  object-cover"
                 />
               ) : (
                 <CgProfile
@@ -121,6 +150,7 @@ function Navigation() {
             )}
           </div>
         </div>
+
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-600 hover:text-amber-600 focus:outline-none"
@@ -140,6 +170,7 @@ function Navigation() {
             />
           </svg>
         </button>
+
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-gray-100 shadow-md py-4 px-6 space-y-4 z-20">
             {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
