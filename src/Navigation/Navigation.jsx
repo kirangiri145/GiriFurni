@@ -90,11 +90,11 @@ function Navigation() {
                 <img
                   src={user.picture}
                   alt="Profile"
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="h-8 w-8 rounded-full object-cover"
                 />
               ) : (
                 <CgProfile
-                  size={20}
+                  size={28}
                   className="text-gray-600 hover:text-amber-600"
                 />
               )}
