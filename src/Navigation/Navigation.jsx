@@ -31,6 +31,7 @@ function Navigation() {
   return (
     <nav className="bg-blue-100 shadow-md py-2 font-bold z-50 font-serif fixed w-full top-0 left-0">
       <div className="container mx-auto px-4 flex items-center justify-between relative">
+        {/* Logo */}
         <NavLink
           to="/"
           className="flex items-center space-x-2 text-2xl font-bold text-green-700 italic"
@@ -39,6 +40,7 @@ function Navigation() {
           <span className="hover:text-amber-700">Giri Furni</span>
         </NavLink>
 
+        {/* Center Nav Links */}
         <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
             (path, i) => {
@@ -67,15 +69,19 @@ function Navigation() {
           )}
         </div>
 
+        {/* Right Side Items */}
         <div className="flex items-center space-x-4 ml-auto">
           {/* 🔍 Search Bar */}
-          <div className="relative">
+          <div className="relative w-28 sm:w-40 md:w-56 lg:w-64">
             <input
               type="text"
               placeholder="Search..."
-              className="border border-gray-600 rounded-full px-3 py-1 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+              className="w-full border border-gray-600 rounded-full px-4 py-1.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
-            <button className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-amber-600">
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-amber-600"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -119,7 +125,7 @@ function Navigation() {
                 <img
                   src={user.picture}
                   alt="Profile"
-                  className="h-5 w-5 rounded-full  object-cover"
+                  className="h-6 w-6 rounded-full object-cover"
                 />
               ) : (
                 <CgProfile
@@ -133,7 +139,9 @@ function Navigation() {
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                 {isAuthenticated ? (
                   <button
-                    onClick={() => logout({ returnTo: window.location.origin })}
+                    onClick={() =>
+                      logout({ returnTo: window.location.origin })
+                    }
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-2xl hover:bg-gray-100"
                   >
                     Logout
@@ -151,6 +159,7 @@ function Navigation() {
           </div>
         </div>
 
+        {/* Hamburger Icon */}
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-600 hover:text-amber-600 focus:outline-none"
@@ -171,6 +180,7 @@ function Navigation() {
           </svg>
         </button>
 
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-gray-100 shadow-md py-4 px-6 space-y-4 z-20">
             {["/", "/shop", "/about", "/services", "/blog", "/contact"].map(
